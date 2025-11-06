@@ -1,1 +1,139 @@
-""  
+<header class="relative bg-slate-900 text-white text-center py-20">
+  <img src="../assets/img/graphene_banner.jpg" alt="Graphene 3D Reconstruction"
+       class="absolute inset-0 w-full h-full object-cover opacity-30" />
+  <div class="relative z-10">
+    <h1 class="text-4xl font-bold mb-2">AI-Assisted 3D Reconstruction of Graphene</h1>
+    <p class="text-lg text-blue-200">Denoising • Statistical Estimation • Optimization • Atomic & Electronic Analysis</p>
+  </div>
+</header>
+<section class="max-w-5xl mx-auto px-6 py-12">
+  <h2 class="text-2xl font-semibold text-blue-700 mb-4">Overview</h2>
+  <p>
+    This project develops a complete computational pipeline to reconstruct the 
+    three-dimensional atomic structure of free-standing graphene from low-dose TEM images.
+    The workflow integrates <span class="font-semibold">machine learning, statistical inference, and physics-based optimization</span> 
+    to recover atomic coordinates and analyze their electronic implications.
+  </p>
+</section>
+<section class="bg-gray-50 py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-2xl font-semibold text-blue-700 mb-8">Computational Pipeline</h2>
+    <div class="grid md:grid-cols-5 gap-6 text-center">
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-semibold mb-2">1. Raw Data</h3>
+        <p class="text-sm text-gray-600">Low-dose TEM images of graphene with high noise and limited signal.</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-semibold mb-2">2. Dictionary Learning</h3>
+        <p class="text-sm text-gray-600">Sparse coding–based denoising using learned atomic patterns.</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-semibold mb-2">3. Statistical Estimation</h3>
+        <p class="text-sm text-gray-600">Gaussian fitting & MAP inference for initial 3D coordinate estimation.</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-semibold mb-2">4. Surface Fitting</h3>
+        <p class="text-sm text-gray-600">LOWESS regression to smooth atomic surfaces and remove outliers.</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-semibold mb-2">5. Refinement</h3>
+        <p class="text-sm text-gray-600">Simulated Annealing + Molecular Dynamics to optimize atomic stability.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="max-w-5xl mx-auto px-6 py-16">
+  <h2 class="text-2xl font-semibold text-blue-700 mb-4">Machine Learning: Dictionary Learning for Denoising</h2>
+  <p>
+    Implemented a sparse coding and K-SVD dictionary learning algorithm to suppress noise 
+    in low-dose TEM images while preserving atomic contrast. 
+    The learned dictionary captures local atomic patterns, outperforming conventional Gaussian and median filters.
+  </p>
+  <div class="grid md:grid-cols-2 gap-6 mt-6">
+    <div>
+      <img src="../assets/img/tem_noisy.jpg" alt="Noisy TEM" class="rounded-xl shadow">
+      <p class="text-center text-sm text-gray-500 mt-2">Raw low-dose TEM image</p>
+    </div>
+    <div>
+      <img src="../assets/img/tem_denoised.jpg" alt="Denoised TEM" class="rounded-xl shadow">
+      <p class="text-center text-sm text-gray-500 mt-2">After Dictionary Learning Denoising</p>
+    </div>
+  </div>
+</section>
+<section class="bg-white py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Statistical Estimation of Atomic Positions</h2>
+    <p>
+      Applied Gaussian fitting and the Maximum a Posteriori (MAP) rule to estimate atomic coordinates from 
+      denoised intensity peaks. The probabilistic model accounts for imaging uncertainty and beam distortion,
+      providing robust 3D initialization for subsequent optimization.
+    </p>
+    <img src="../assets/img/map_estimation.png" alt="MAP Estimation Diagram" class="rounded-xl shadow mt-6">
+  </div>
+</section>
+<section class="bg-gray-50 py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Surface Smoothing with LOWESS</h2>
+    <p>
+      Utilized locally weighted regression (LOWESS) to fit atomic z-coordinates, 
+      producing a smooth continuous graphene surface while preserving curvature features from defects and ripples.
+    </p>
+    <img src="../assets/img/lowess_surface.png" alt="LOWESS Surface Fitting" class="rounded-xl shadow mt-6">
+  </div>
+</section>
+<section class="bg-white py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Optimization: Simulated Annealing + Molecular Dynamics</h2>
+    <p>
+      The reconstructed coordinates were refined by minimizing the energy function 
+      between experimental and simulated images using <span class="font-semibold">Simulated Annealing</span>.
+      Each iteration integrates <span class="font-semibold">Molecular Dynamics (LAMMPS)</span> 
+      to ensure physically stable atomic arrangements.
+    </p>
+    <video autoplay loop muted playsinline class="rounded-xl w-full shadow mt-6">
+      <source src="../assets/media/graphene_demo.mp4" type="video/mp4">
+    </video>
+    <p class="text-center text-sm text-gray-500 mt-2">Graphene dynamics under the interaction with the electron beam</p>
+  </div>
+</section>
+<section class="bg-gray-50 py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Structural and Electronic Analysis</h2>
+    <p>
+      Analyzed reconstructed atomic structures and corresponding electronic properties using 
+      <span class="font-semibold">Density Functional Theory (DFT)</span>. 
+      The study revealed that ripple amplitude and local curvature significantly 
+      influence graphene’s band structure and electron mobility.
+    </p>
+    <div class="grid md:grid-cols-2 gap-8 mt-6">
+      <img src="../assets/img/ripple_map.png" alt="Ripple Structure" class="rounded-xl shadow">
+      <img src="../assets/img/band_structure.png" alt="Band Structure Analysis" class="rounded-xl shadow">
+    </div>
+  </div>
+</section>
+<section class="max-w-5xl mx-auto px-6 py-16">
+  <h2 class="text-2xl font-semibold text-blue-700 mb-4">Technical Summary</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    <ul class="list-disc pl-6">
+      <li>Python (NumPy, SciPy, scikit-learn, PyTorch)</li>
+      <li>Machine Learning: Dictionary Learning, Sparse Coding</li>
+      <li>Statistical Inference: Gaussian Fitting, MAP Estimation</li>
+      <li>Regression: LOWESS surface fitting</li>
+    </ul>
+    <ul class="list-disc pl-6">
+      <li>Optimization: Simulated Annealing</li>
+      <li>Molecular Dynamics (LAMMPS)</li>
+      <li>DFT Simulation (VASP)</li>
+      <li>Visualization: MATLAB, Matplotlib, Pymol, Vesta</li>
+    </ul>
+  </div>
+</section>
+<footer class="bg-gray-200 text-center py-6 text-sm text-gray-600">
+  © 2025 Xiaojun Zhang — Built with Tailwind CSS | <a href="../index.html" class="text-blue-700 hover:underline">Back to Home</a>
+</footer>
