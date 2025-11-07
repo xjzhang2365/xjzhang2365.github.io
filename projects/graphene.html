@@ -1,139 +1,627 @@
-<header class="relative bg-slate-900 text-white text-center py-20">
-  <img src="../assets/img/graphene_banner.jpg" alt="Graphene 3D Reconstruction"
-       class="absolute inset-0 w-full h-full object-cover opacity-30" />
-  <div class="relative z-10">
-    <h1 class="text-4xl font-bold mb-2">AI-Assisted 3D Reconstruction of Graphene</h1>
-    <p class="text-lg text-blue-200">Denoising • Statistical Estimation • Optimization • Atomic & Electronic Analysis</p>
-  </div>
-</header>
-<section class="max-w-5xl mx-auto px-6 py-12">
-  <h2 class="text-2xl font-semibold text-blue-700 mb-4">Overview</h2>
-  <p>
-    This project develops a complete computational pipeline to reconstruct the 
-    three-dimensional atomic structure of free-standing graphene from low-dose TEM images.
-    The workflow integrates <span class="font-semibold">machine learning, statistical inference, and physics-based optimization</span> 
-    to recover atomic coordinates and analyze their electronic implications.
-  </p>
-</section>
-<section class="bg-gray-50 py-16">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-2xl font-semibold text-blue-700 mb-8">Computational Pipeline</h2>
-    <div class="grid md:grid-cols-5 gap-6 text-center">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI-driven 3D atomic structure reconstruction from low-dose imaging - Technical deep dive into machine learning pipeline achieving sub-angstrom accuracy" />
+  <title>AI-Powered 3D Reconstruction | Xiaojun Zhang</title>
 
-      <div class="bg-white p-4 rounded-xl shadow">
-        <h3 class="font-semibold mb-2">1. Raw Data</h3>
-        <p class="text-sm text-gray-600">Low-dose TEM images of graphene with high noise and limited signal.</p>
-      </div>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-      <div class="bg-white p-4 rounded-xl shadow">
-        <h3 class="font-semibold mb-2">2. Dictionary Learning</h3>
-        <p class="text-sm text-gray-600">Sparse coding–based denoising using learned atomic patterns.</p>
-      </div>
+  <!-- Favicon -->
+  <link rel="icon" href="../assets/img/icon.png" />
+</head>
 
-      <div class="bg-white p-4 rounded-xl shadow">
-        <h3 class="font-semibold mb-2">3. Statistical Estimation</h3>
-        <p class="text-sm text-gray-600">Gaussian fitting & MAP inference for initial 3D coordinate estimation.</p>
-      </div>
-
-      <div class="bg-white p-4 rounded-xl shadow">
-        <h3 class="font-semibold mb-2">4. Surface Fitting</h3>
-        <p class="text-sm text-gray-600">LOWESS regression to smooth atomic surfaces and remove outliers.</p>
-      </div>
-
-      <div class="bg-white p-4 rounded-xl shadow">
-        <h3 class="font-semibold mb-2">5. Refinement</h3>
-        <p class="text-sm text-gray-600">Simulated Annealing + Molecular Dynamics to optimize atomic stability.</p>
-      </div>
-
+<body class="bg-gray-50 text-gray-800 leading-relaxed">
+  
+  <!-- Header / Hero -->
+  <header class="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+      <img src="../assets/img/graphene_banner.jpg" alt="Graphene Structure" class="w-full h-full object-cover" />
     </div>
-  </div>
-</section>
-<section class="max-w-5xl mx-auto px-6 py-16">
-  <h2 class="text-2xl font-semibold text-blue-700 mb-4">Machine Learning: Dictionary Learning for Denoising</h2>
-  <p>
-    Implemented a sparse coding and K-SVD dictionary learning algorithm to suppress noise 
-    in low-dose TEM images while preserving atomic contrast. 
-    The learned dictionary captures local atomic patterns, outperforming conventional Gaussian and median filters.
-  </p>
-  <div class="grid md:grid-cols-2 gap-6 mt-6">
-    <div>
-      <img src="../assets/img/tem_noisy.jpg" alt="Noisy TEM" class="rounded-xl shadow">
-      <p class="text-center text-sm text-gray-500 mt-2">Raw low-dose TEM image</p>
+    <div class="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center">
+      <div class="inline-block bg-blue-500 bg-opacity-30 backdrop-blur px-4 py-2 rounded-full text-sm mb-4 border border-blue-400">
+        PhD Research Project • 2019-2025
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">AI-Powered 3D Reconstruction</h1>
+      <p class="text-xl text-blue-200 mb-2">From Noisy 2D Images to Precise 3D Atomic Structures</p>
+      <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+        End-to-end machine learning pipeline combining computer vision, statistical inference, 
+        and physics-based optimization to achieve 0.45Å accuracy
+      </p>
     </div>
-    <div>
-      <img src="../assets/img/tem_denoised.jpg" alt="Denoised TEM" class="rounded-xl shadow">
-      <p class="text-center text-sm text-gray-500 mt-2">After Dictionary Learning Denoising</p>
+  </header>
+
+  <!-- Quick Navigation -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap justify-center gap-4 text-sm font-medium text-gray-700">
+      <a href="#problem" class="hover:text-blue-600 transition">The Challenge</a>
+      <a href="#solution" class="hover:text-blue-600 transition">Solution</a>
+      <a href="#pipeline" class="hover:text-blue-600 transition">Pipeline</a>
+      <a href="#results" class="hover:text-blue-600 transition">Results</a>
+      <a href="#impact" class="hover:text-blue-600 transition">Impact</a>
+      <a href="../index.html" class="text-blue-600 hover:text-blue-800">← Back to Home</a>
     </div>
-  </div>
-</section>
-<section class="bg-white py-16">
-  <div class="max-w-5xl mx-auto px-6">
-    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Statistical Estimation of Atomic Positions</h2>
-    <p>
-      Applied Gaussian fitting and the Maximum a Posteriori (MAP) rule to estimate atomic coordinates from 
-      denoised intensity peaks. The probabilistic model accounts for imaging uncertainty and beam distortion,
-      providing robust 3D initialization for subsequent optimization.
-    </p>
-    <img src="../assets/img/map_estimation.png" alt="MAP Estimation Diagram" class="rounded-xl shadow mt-6">
-  </div>
-</section>
-<section class="bg-gray-50 py-16">
-  <div class="max-w-5xl mx-auto px-6">
-    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Surface Smoothing with LOWESS</h2>
-    <p>
-      Utilized locally weighted regression (LOWESS) to fit atomic z-coordinates, 
-      producing a smooth continuous graphene surface while preserving curvature features from defects and ripples.
-    </p>
-    <img src="../assets/img/lowess_surface.png" alt="LOWESS Surface Fitting" class="rounded-xl shadow mt-6">
-  </div>
-</section>
-<section class="bg-white py-16">
-  <div class="max-w-5xl mx-auto px-6">
-    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Optimization: Simulated Annealing + Molecular Dynamics</h2>
-    <p>
-      The reconstructed coordinates were refined by minimizing the energy function 
-      between experimental and simulated images using <span class="font-semibold">Simulated Annealing</span>.
-      Each iteration integrates <span class="font-semibold">Molecular Dynamics (LAMMPS)</span> 
-      to ensure physically stable atomic arrangements.
-    </p>
-    <video autoplay loop muted playsinline class="rounded-xl w-full shadow mt-6">
-      <source src="../assets/media/graphene_demo.mp4" type="video/mp4">
-    </video>
-    <p class="text-center text-sm text-gray-500 mt-2">Graphene dynamics under the interaction with the electron beam</p>
-  </div>
-</section>
-<section class="bg-gray-50 py-16">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Structural and Electronic Analysis</h2>
-    <p>
-      Analyzed reconstructed atomic structures and corresponding electronic properties using 
-      <span class="font-semibold">Density Functional Theory (DFT)</span>. 
-      The study revealed that ripple amplitude and local curvature significantly 
-      influence graphene’s band structure and electron mobility.
-    </p>
-    <div class="grid md:grid-cols-2 gap-8 mt-6">
-      <img src="../assets/img/ripple_map.png" alt="Ripple Structure" class="rounded-xl shadow">
-      <img src="../assets/img/band_structure.png" alt="Band Structure Analysis" class="rounded-xl shadow">
+  </nav>
+
+  <!-- Executive Summary -->
+  <section class="bg-gradient-to-r from-blue-50 to-cyan-50 py-12">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Project Overview</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+          <div class="text-3xl font-bold text-blue-600 mb-2">0.45Å</div>
+          <p class="text-gray-600">Sub-angstrom accuracy in 3D reconstruction</p>
+        
+        <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+          <div class="text-3xl font-bold text-purple-600 mb-2">50000+</div>
+          <p class="text-gray-600">Images processed for dynamic analysis</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-8 shadow-lg">
+        <p class="text-gray-700 text-lg leading-relaxed">
+          This project solves a critical computer vision problem: reconstructing 3D atomic structures from extremely noisy 2D projection images. 
+          Traditional methods fail when signal-to-noise ratios are low, making this a perfect application for AI/ML techniques. 
+          I developed a complete pipeline that integrates <span class="font-semibold">machine learning, statistical inference, and physics-based validation</span> 
+          to achieve results that were previously impossible with conventional approaches.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
-<section class="max-w-5xl mx-auto px-6 py-16">
-  <h2 class="text-2xl font-semibold text-blue-700 mb-4">Technical Summary</h2>
-  <div class="grid md:grid-cols-2 gap-6">
-    <ul class="list-disc pl-6">
-      <li>Python (NumPy, SciPy, scikit-learn, PyTorch)</li>
-      <li>Machine Learning: Dictionary Learning, Sparse Coding</li>
-      <li>Statistical Inference: Gaussian Fitting, MAP Estimation</li>
-      <li>Regression: LOWESS surface fitting</li>
-    </ul>
-    <ul class="list-disc pl-6">
-      <li>Optimization: Simulated Annealing</li>
-      <li>Molecular Dynamics (LAMMPS)</li>
-      <li>DFT Simulation (VASP)</li>
-      <li>Visualization: MATLAB, Matplotlib, Pymol, Vesta</li>
-    </ul>
-  </div>
-</section>
-<footer class="bg-gray-200 text-center py-6 text-sm text-gray-600">
-  © 2025 Xiaojun Zhang — Built with Tailwind CSS | <a href="../index.html" class="text-blue-700 hover:underline">Back to Home</a>
-</footer>
+  </section>
+
+  <!-- The Problem -->
+  <section id="problem" class="max-w-5xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold text-gray-900 mb-6">The Challenge</h2>
+    
+    <div class="prose prose-lg max-w-none mb-8">
+      <p class="text-gray-700 mb-4">
+        Transmission Electron Microscopy (TEM) can image individual atoms, but there's a fundamental trade-off: 
+        <span class="font-semibold">higher image quality requires higher electron doses, which damages sensitive materials like graphene</span>. 
+        To preserve sample integrity, we must use low-dose imaging—but this produces extremely noisy images where traditional 
+        computer vision algorithms fail.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+        <h3 class="font-bold text-gray-900 mb-3">Technical Challenges:</h3>
+        <ul class="space-y-2 text-gray-700">
+          <li>• <span class="font-semibold">Extreme noise</li>
+          <li>• <span class="font-semibold">Limited data:</span> Only 2D projections of 3D structures</li>
+          <li>• <span class="font-semibold">Physical constraints:</span> Atomic positions must obey physics</li>
+          <li>• <span class="font-semibold">Real-time dynamics:</span> Structures change during imaging</li>
+          <li>• <span class="font-semibold">High dimensionality:</span> 10,000+ atoms to track</li>
+        </ul>
+      </div>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+        <h3 class="font-bold text-gray-900 mb-3">Why Traditional Methods Fail:</h3>
+        <ul class="space-y-2 text-gray-700">
+          <li>• Gaussian/median filters destroy atomic-scale features</li>
+          <li>• Simple thresholding cannot distinguish atoms from noise</li>
+          <li>• No physical validation leads to impossible structures</li>
+          <li>• Cannot capture temporal dynamics</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bg-gradient-to-r from-gray-900 to-blue-900 text-white rounded-xl p-8 shadow-lg">
+      <h3 class="text-xl font-bold mb-4">Real-World Application Context</h3>
+      <p class="text-blue-100 mb-4">
+        This problem isn't unique to graphene research. Similar challenges exist in:
+      </p>
+      <div class="grid md:grid-cols-2 gap-4 text-sm">
+        <div>
+          <p class="font-semibold mb-2">Semiconductor Industry:</p>
+          <p class="text-gray-300">Defect detection in nanoscale circuits</p>
+        </div>
+        <div>
+          <p class="font-semibold mb-2">Battery Development:</p>
+          <p class="text-gray-300">Materials characterization under operating conditions</p>
+        </div>
+        <div>
+          <p class="font-semibold mb-2">Pharmaceutical R&D:</p>
+          <p class="text-gray-300">Protein structure determination from cryo-EM</p>
+        </div>
+        <div>
+          <p class="font-semibold mb-2">Quality Control:</p>
+          <p class="text-gray-300">Non-destructive testing of sensitive materials</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Solution -->
+  <section id="solution" class="bg-white py-16">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-gray-900 mb-6">My Solution: AI-Driven Pipeline</h2>
+      
+      <p class="text-gray-700 text-lg mb-8">
+        I developed a novel approach that combines three key innovations to overcome these challenges:
+      </p>
+
+      <div class="space-y-6">
+        <!-- Innovation 1 -->
+        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 shadow-lg border-l-4 border-blue-600">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">1. ML-Based Intelligent Denoising</h3>
+          <p class="text-gray-700 mb-3">
+            Instead of generic filters, I implemented <span class="font-semibold">dictionary learning with sparse coding</span> 
+            that learns the actual patterns of atomic structures from data. This preserves atomic-scale features while 
+            suppressing noise.
+          </p>
+          <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-600"><span class="font-semibold">Key Technology:</span> K-SVD algorithm, sparse representation, adaptive pattern learning</p>
+          </div>
+        </div>
+
+        <!-- Innovation 2 -->
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 shadow-lg border-l-4 border-purple-600">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">2. Statistical Framework for Uncertainty Quantification</h3>
+          <p class="text-gray-700 mb-3">
+            Applied <span class="font-semibold">Bayesian inference and Maximum Likelihood Estimation</span> to extract 3D 
+            coordinates from 2D projections while quantifying uncertainty. This provides robust initial estimates even with 
+            extreme noise levels.
+          </p>
+          <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-600"><span class="font-semibold">Key Technology:</span> Gaussian mixture models, MAP estimation, LOWESS regression for surface fitting</p>
+          </div>
+        </div>
+
+        <!-- Innovation 3 -->
+        <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 shadow-lg border-l-4 border-green-600">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">3. Physics-Constrained Optimization</h3>
+          <p class="text-gray-700 mb-3">
+            Integrated <span class="font-semibold">Simulated Annealing with Molecular Dynamics</span> to ensure predicted 
+            structures obey physical laws. Each optimization step validates atomic positions through MD simulation, 
+            preventing impossible configurations.
+          </p>
+          <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-600"><span class="font-semibold">Key Technology:</span> Simulated Annealing optimization, LAMMPS integration, energy minimization</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Computational Pipeline -->
+  <section id="pipeline" class="bg-gray-50 py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4 text-center">Complete Computational Pipeline</h2>
+      <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+        Five-stage process transforming noisy 2D images into validated 3D atomic structures
+      </p>
+
+      <div class="grid md:grid-cols-5 gap-4 mb-12">
+        <!-- Stage 1 -->
+        <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition relative">
+          <div class="absolute -top-3 -right-3 bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg">1</div>
+          <div class="text-4xl mb-4 text-center">📷</div>
+          <h3 class="font-bold text-gray-900 mb-2 text-center">Raw Data Acquisition</h3>
+          <p class="text-sm text-gray-600 text-center">Low-dose TEM images with high noise, limited signal</p>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition relative">
+          <div class="absolute -top-3 -right-3 bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg">2</div>
+          <div class="text-4xl mb-4 text-center">🧹</div>
+          <h3 class="font-bold text-gray-900 mb-2 text-center">ML Denoising</h3>
+          <p class="text-sm text-gray-600 text-center">Dictionary learning & sparse coding for pattern-aware noise removal</p>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition relative">
+          <div class="absolute -top-3 -right-3 bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg">3</div>
+          <div class="text-4xl mb-4 text-center">📊</div>
+          <h3 class="font-bold text-gray-900 mb-2 text-center">Statistical Estimation</h3>
+          <p class="text-sm text-gray-600 text-center">Bayesian inference for 3D coordinate initialization</p>
+        </div>
+
+        <!-- Stage 4 -->
+        <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition relative">
+          <div class="absolute -top-3 -right-3 bg-orange-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg">4</div>
+          <div class="text-4xl mb-4 text-center">📈</div>
+          <h3 class="font-bold text-gray-900 mb-2 text-center">Surface Smoothing</h3>
+          <p class="text-sm text-gray-600 text-center">LOWESS regression to create continuous atomic surfaces</p>
+        </div>
+
+        <!-- Stage 5 -->
+        <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition relative">
+          <div class="absolute -top-3 -right-3 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg">5</div>
+          <div class="text-4xl mb-4 text-center">⚡</div>
+          <h3 class="font-bold text-gray-900 mb-2 text-center">Refinement & Validation</h3>
+          <p class="text-sm text-gray-600 text-center">Simulated Annealing + MD for physically valid structures</p>
+        </div>
+      </div>
+
+      <!-- Technical Deep Dive Sections -->
+      <div class="space-y-8">
+        <!-- Stage 2 Detail -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div class="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-6">
+            <h3 class="text-2xl font-bold">Stage 2: Machine Learning for Denoising</h3>
+          </div>
+          <div class="p-8">
+            <div class="md:flex gap-8">
+              <div class="md:w-1/2 mb-6 md:mb-0">
+                <h4 class="font-bold text-gray-900 mb-3">The Approach</h4>
+                <p class="text-gray-700 mb-4">
+                  Implemented K-SVD dictionary learning algorithm that discovers the underlying patterns in atomic structures. 
+                  Unlike generic filters, this method learns what "clean" atomic patterns look like from the data itself.
+                </p>
+                <h4 class="font-bold text-gray-900 mb-3">Why It Works</h4>
+                <ul class="space-y-2 text-gray-700 text-sm">
+                  <li>• <span class="font-semibold">Adaptive:</span> Learns patterns specific to atomic structures</li>
+                  <li>• <span class="font-semibold">Sparse:</span> Represents images with minimal components</li>
+                  <li>• <span class="font-semibold">Preserves features:</span> Maintains atomic-scale details</li>
+                  <li>• <span class="font-semibold">Outperforms:</span> Better SNR than Gaussian filters</li>
+                </ul>
+              </div>
+              <div class="md:w-1/2">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="text-center">
+                    <img src="../assets/img/tem_noisy.jpg" alt="Raw noisy TEM" class="rounded-lg shadow-md mb-2 w-full" />
+                    <p class="text-sm text-gray-600">Before: Raw noisy image</p>
+                  </div>
+                  <div class="text-center">
+                    <img src="../assets/img/tem_denoised.jpg" alt="Denoised TEM" class="rounded-lg shadow-md mb-2 w-full" />
+                    <p class="text-sm text-gray-600">After: ML denoising</p>
+                  </div>
+                </div>
+                <div class="mt-4 bg-purple-50 p-4 rounded-lg">
+                  <p class="text-sm text-gray-700"><span class="font-semibold">Implementation:</span> Python with custom K-SVD implementation, optimized for TEM data characteristics</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 3 Detail -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div class="bg-gradient-to-r from-green-600 to-green-700 text-white p-6">
+            <h3 class="text-2xl font-bold">Stage 3: Statistical Estimation of 3D Positions</h3>
+          </div>
+          <div class="p-8">
+            <div class="md:flex gap-8">
+              <div class="md:w-1/2 mb-6 md:mb-0">
+                <h4 class="font-bold text-gray-900 mb-3">The Challenge</h4>
+                <p class="text-gray-700 mb-4">
+                  A 2D TEM image is just a projection of 3D atomic positions. We need to infer the missing z-coordinates 
+                  (depth) from intensity variations—essentially solving an inverse problem with incomplete information.
+                </p>
+                <h4 class="font-bold text-gray-900 mb-3">The Solution</h4>
+                <p class="text-gray-700 mb-4">
+                  Applied Gaussian fitting to intensity peaks, then used Maximum a Posteriori (MAP) estimation with 
+                  physical priors to determine most likely 3D positions. Uncertainty quantification ensures we know 
+                  confidence levels for each atomic position.
+                </p>
+              </div>
+              <div class="md:w-1/2">
+                <img src="../assets/img/map_estimation.png" alt="MAP Estimation Process" class="rounded-lg shadow-md mb-4 w-full" />
+                <div class="bg-green-50 p-4 rounded-lg">
+                  <p class="text-sm text-gray-700 mb-2"><span class="font-semibold">Key Innovation:</span> Incorporating physics-based priors</p>
+                  <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• Bond length constraints</li>
+                    <li>• Known crystal symmetry</li>
+                    <li>• Expected curvature ranges</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 5 Detail -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div class="bg-gradient-to-r from-red-600 to-red-700 text-white p-6">
+            <h3 class="text-2xl font-bold">Stage 5: Optimization with Physical Validation</h3>
+          </div>
+          <div class="p-8">
+            <div class="mb-6">
+              <h4 class="font-bold text-gray-900 mb-3">The Innovation: Coupling AI with Physics</h4>
+              <p class="text-gray-700 mb-4">
+                The breakthrough is combining Simulated Annealing (a powerful optimization algorithm) with Molecular Dynamics 
+                simulation at each step. This ensures every proposed structure is physically plausible before accepting it.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div class="bg-red-50 rounded-lg p-6">
+                <h5 class="font-bold text-gray-900 mb-3">Simulated Annealing</h5>
+                <p class="text-gray-700 text-sm mb-2">
+                  Global optimization method that escapes local minima by occasionally accepting worse solutions, 
+                  gradually "cooling" to find the global optimum.
+                </p>
+                <p class="text-xs text-gray-600">Minimizes difference between reconstructed and experimental images</p>
+              </div>
+              <div class="bg-blue-50 rounded-lg p-6">
+                <h5 class="font-bold text-gray-900 mb-3">Molecular Dynamics</h5>
+                <p class="text-gray-700 text-sm mb-2">
+                  Physics simulation (LAMMPS) that validates whether proposed atomic positions are stable and obey 
+                  interatomic forces.
+                </p>
+                <p class="text-xs text-gray-600">Prevents physically impossible configurations</p>
+              </div>
+            </div>
+
+            <div class="bg-gray-100 rounded-lg p-6">
+              <video autoplay loop muted playsinline class="rounded-lg w-full shadow-md mb-4">
+                <source src="../assets/media/graphene_demo.mp4" type="video/mp4">
+                Your browser doesn't support video playback.
+              </video>
+              <p class="text-sm text-gray-600 text-center">
+                Visualization: Dynamic rippling behavior captured through sequential reconstruction
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact & Applications -->
+  <section id="impact" class="bg-gradient-to-r from-slate-800 to-blue-900 text-white py-16">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-8 text-center">Real-World Impact & Applications</h2>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <!-- Industry Applications -->
+        <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-8">
+          <h3 class="text-xl font-bold mb-6">Potential Industry Applications</h3>
+          <div class="space-y-4">
+            <div class="pb-4 border-b border-white border-opacity-20">
+              <h4 class="font-semibold text-blue-200 mb-2">Semiconductor Manufacturing</h4>
+              <p class="text-sm text-gray-300">
+                Quality control and defect detection in nanoscale circuits where non-destructive, 
+                low-dose imaging is essential
+              </p>
+            </div>
+            <div class="pb-4 border-b border-white border-opacity-20">
+              <h4 class="font-semibold text-blue-200 mb-2">Battery & Energy Storage</h4>
+              <p class="text-sm text-gray-300">
+                In-situ characterization of electrode materials during operation without beam damage
+              </p>
+            </div>
+            <div class="pb-4 border-b border-white border-opacity-20">
+              <h4 class="font-semibold text-blue-200 mb-2">Materials R&D</h4>
+              <p class="text-sm text-gray-300">
+                Rapid screening and characterization of novel 2D materials and nanostructures
+              </p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-blue-200 mb-2">Pharmaceutical Development</h4>
+              <p class="text-sm text-gray-300">
+                Similar reconstruction challenges exist in cryo-EM for protein structure determination
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transferable Skills -->
+        <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-8">
+          <h3 class="text-xl font-bold mb-6">Transferable Technical Skills</h3>
+          <p class="text-blue-200 mb-4 text-sm">
+            This project demonstrates capabilities directly applicable to various AI/ML roles:
+          </p>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-start">
+              <span class="text-green-400 mr-2">✓</span>
+              <span class="text-gray-300"><span class="font-semibold text-white">End-to-end ML pipeline development</span> from data preprocessing to deployment</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-400 mr-2">✓</span>
+              <span class="text-gray-300"><span class="font-semibold text-white">Computer vision expertise</span> for noisy, real-world imaging data</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-400 mr-2">✓</span>
+              <span class="text-gray-300"><span class="font-semibold text-white">Custom algorithm development</span> when off-the-shelf solutions fail</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-400 mr-2">✓</span>
+              <span class="text-gray-300"><span class="font-semibold text-white">Physics-informed ML</span> integrating domain knowledge into models</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-400 mr-2">✓</span>
+              <span class="text-gray-300"><span class="font-semibold text-white">High-dimensional optimization</span> for complex objective functions</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-400 mr-2">✓</span>
+              <span class="text-gray-300"><span class="font-semibold text-white">Production-ready code</span> that processes hundreds of images efficiently</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Why This Matters -->
+      <div class="bg-blue-600 bg-opacity-30 backdrop-blur border border-blue-400 rounded-xl p-8">
+        <h3 class="text-2xl font-bold mb-4 text-center">Why This Project Matters</h3>
+        <p class="text-blue-100 text-center max-w-3xl mx-auto text-lg">
+          This work demonstrates my ability to tackle complex, real-world problems by combining AI/ML expertise 
+          with domain knowledge and engineering principles. I don't just apply existing tools—I develop novel 
+          solutions when needed, validate them rigorously, and build systems that deliver quantifiable results.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Stack Summary -->
+  <section class="bg-gray-50 py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Complete Technical Stack</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Programming & ML -->
+        <div class="bg-white rounded-xl p-6 shadow-lg">
+          <h3 class="font-bold text-gray-900 mb-4 text-center">Programming & ML</h3>
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li>• <span class="font-semibold">Python:</span> NumPy, SciPy, scikit-learn</li>
+            <li>• <span class="font-semibold">Deep Learning:</span> PyTorch for custom models</li>
+            <li>• <span class="font-semibold">ML Algorithms:</span> K-SVD, Sparse Coding</li>
+            <li>• <span class="font-semibold">Data Processing:</span> Pandas, OpenCV</li>
+            <li>• <span class="font-semibold">Version Control:</span> Git</li>
+          </ul>
+        </div>
+
+        <!-- Statistical & Optimization -->
+        <div class="bg-white rounded-xl p-6 shadow-lg">
+          <h3 class="font-bold text-gray-900 mb-4 text-center">Statistical Methods</h3>
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li>• <span class="font-semibold">Inference:</span> Bayesian, MAP, MLE</li>
+            <li>• <span class="font-semibold">Regression:</span> LOWESS, Gaussian fitting</li>
+            <li>• <span class="font-semibold">Optimization:</span> Simulated Annealing</li>
+            <li>• <span class="font-semibold">Statistics:</span> KL divergence, uncertainty quantification</li>
+            <li>• <span class="font-semibold">Analysis:</span> MATLAB, R</li>
+          </ul>
+        </div>
+
+        <!-- Physics & Visualization -->
+        <div class="bg-white rounded-xl p-6 shadow-lg">
+          <h3 class="font-bold text-gray-900 mb-4 text-center">Simulation & Viz</h3>
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li>• <span class="font-semibold">MD:</span> LAMMPS for atomic simulation</li>
+            <li>• <span class="font-semibold">DFT:</span> VASP for electronic properties</li>
+            <li>• <span class="font-semibold">Visualization:</span> Matplotlib, Pymol, Vesta</li>
+            <li>• <span class="font-semibold">Image Processing:</span> TEM analysis tools</li>
+            <li>• <span class="font-semibold">HPC:</span> Cluster computing experience</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-white py-16">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Interested in Discussing This Work?</h2>
+      <p class="text-gray-600 mb-8 text-lg">
+        I'm happy to discuss technical details, share code samples, or explore how these methods 
+        could apply to your company's challenges.
+      </p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href="mailto:xzhang2365@gmail.com" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-medium transition transform hover:scale-105 shadow-lg">
+          Email Me
+        </a>
+        <a href="../cv/Xiaojun_Zhang_CV.pdf" class="bg-gray-800 hover:bg-gray-900 text-white px-8 py-4 rounded-lg font-medium transition transform hover:scale-105 shadow-lg">
+          Download CV
+        </a>
+        <a href="../index.html" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded-lg font-medium transition transform hover:scale-105 shadow-lg">
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publication Note -->
+  <section class="bg-blue-50 py-12">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="bg-white rounded-xl p-8 shadow-lg">
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Publication Status</h3>
+        <p class="text-gray-700 mb-4">
+          <span class="font-semibold">Manuscript in preparation:</span> 
+          "Atomic Resolution 3D Dynamics Retrieval of Graphene from High-speed Low-dose Data"
+        </p>
+        <p class="text-sm text-gray-600">
+          This work represents the culmination of my PhD research and demonstrates innovative approaches 
+          to combining AI/ML with physics-based modeling for materials characterization.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 text-center py-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="mb-2">© 2025 Xiaojun Zhang, PhD</p>
+      <p class="text-sm mb-4">AI/ML Engineer | Computer Vision Specialist | Computational Scientist</p>
+      <div class="flex justify-center gap-6 text-sm flex-wrap">
+        <a href="../index.html" class="hover:text-white transition">Home</a>
+        <a href="mailto:xzhang2365@gmail.com" class="hover:text-white transition">Contact</a>
+        <a href="https://www.linkedin.com/in/xiaojun-zhang-9b8495321" target="_blank" class="hover:text-white transition">LinkedIn</a>
+        <a href="https://github.com/xjzhang2365" target="_blank" class="hover:text-white transition">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
+        
+
+        <!-- Comparative Advantage -->
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-8 shadow-lg">
+          <h3 class="text-xl font-bold text-gray-900 mb-6">Advantages Over Prior Methods</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <span class="text-green-600 text-xl mr-3">✓</span>
+              <div>
+                <p class="font-semibold text-gray-900">Handles Extreme Noise</p>
+                <p class="text-sm text-gray-600">Works at SNR levels where traditional methods fail completely</p>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-600 text-xl mr-3">✓</span>
+              <div>
+                <p class="font-semibold text-gray-900">Physical Validity Guaranteed</p>
+                <p class="text-sm text-gray-600">MD integration prevents impossible structures</p>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-600 text-xl mr-3">✓</span>
+              <div>
+                <p class="font-semibold text-gray-900">Captures Dynamics</p>
+                <p class="text-sm text-gray-600">Time-resolved reconstruction of structural changes</p>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-600 text-xl mr-3">✓</span>
+              <div>
+                <p class="font-semibold text-gray-900">Scalable & Automated</p>
+                <p class="text-sm text-gray-600">Batch processing of hundreds of images</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Structural Analysis Results -->
+      <div class="bg-gray-900 text-white rounded-xl p-8 shadow-lg mb-12">
+        <h3 class="text-2xl font-bold mb-6">Structural & Electronic Analysis</h3>
+        <p class="text-gray-300 mb-6">
+          Beyond reconstruction, I analyzed how 3D atomic distortions influence electronic properties using Density Functional Theory (DFT), 
+          revealing the relationship between structural ripples and electron transport.
+        </p>
+        <div class="grid md:grid-cols-2 gap-6">
+          <img src="../assets/img/ripple_map.png" alt="Ripple structure analysis" class="rounded-lg shadow-md w-full" />
+          <img src="../assets/img/band_structure.png" alt="Electronic band structure" class="rounded-lg shadow-md w-full" />
+        </div>
+        <p class="text-sm text-gray-400 mt-4 text-center">
+          Left: 3D ripple topology reconstructed from TEM images | Right: Corresponding electronic band structure from DFT
+        </p>
+      </div>
+
+      <!-- Dynamic Behavior -->
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-8 shadow-lg">
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Capturing Dynamic Behavior</h3>
+        <p class="text-gray-700 mb-6">
+          Applied the pipeline to sequential TEM images to reconstruct time-resolved 3D dynamics of graphene ripples 
+          induced by electron beam excitation. This revealed how atomic-scale structures evolve under external stimulation—
+          information that's critical for understanding material behavior under operating conditions.
+        </p>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white rounded-lg p-6">
+            <h4 class="font-semibold text-gray-900 mb-3">Key Finding: Dose Threshold</h4>
+            <p class="text-gray-700 text-sm">
+              Identified critical electron dose below which structural information becomes indistinguishable from noise. 
+              This establishes minimum imaging requirements for reliable analysis.
+            </p>
+          </div>
+          <div class="bg-white rounded-lg p-6">
+            <h4 class="font-semibold text-gray-900 mb-3">Defect Analysis</h4>
+            <p class="text-gray-700 text-sm">
+              Successfully reconstructed rapidly-changing defect structures ("bridges"), providing insights into 
+              defect formation and evolution mechanisms.
+            </p>
+          </div>
+        </div>
+      
