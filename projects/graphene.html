@@ -28,7 +28,7 @@
       <p class="text-xl text-blue-200 mb-2">From Noisy 2D Images to Precise 3D Atomic Structures</p>
       <p class="text-lg text-gray-300 max-w-3xl mx-auto">
         End-to-end machine learning pipeline combining computer vision, statistical inference, 
-        and physics-based optimization to achieve 0.45Å accuracy
+        and physics-based optimization to achieve 0.3Å accuracy
       </p>
     </div>
   </header>
@@ -54,6 +54,7 @@
         <div class="bg-white rounded-xl p-6 shadow-lg text-center">
           <div class="text-3xl font-bold text-blue-600 mb-2">0.45Å</div>
           <p class="text-gray-600">Sub-angstrom accuracy in 3D reconstruction</p>
+        </div>
         
         <div class="bg-white rounded-xl p-6 shadow-lg text-center">
           <div class="text-3xl font-bold text-purple-600 mb-2">50000+</div>
@@ -89,11 +90,10 @@
       <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
         <h3 class="font-bold text-gray-900 mb-3">Technical Challenges:</h3>
         <ul class="space-y-2 text-gray-700">
-          <li>• <span class="font-semibold">Extreme noise</li>
+          <li>• <span class="font-semibold">Extreme noise</span> </li>
           <li>• <span class="font-semibold">Limited data:</span> Only 2D projections of 3D structures</li>
           <li>• <span class="font-semibold">Physical constraints:</span> Atomic positions must obey physics</li>
           <li>• <span class="font-semibold">Real-time dynamics:</span> Structures change during imaging</li>
-          <li>• <span class="font-semibold">High dimensionality:</span> 10,000+ atoms to track</li>
         </ul>
       </div>
 
@@ -104,6 +104,7 @@
           <li>• Simple thresholding cannot distinguish atoms from noise</li>
           <li>• No physical validation leads to impossible structures</li>
           <li>• Cannot capture temporal dynamics</li>
+          <li>• Computationally intractable for large systems</li>
         </ul>
       </div>
     </div>
@@ -150,7 +151,7 @@
           <p class="text-gray-700 mb-3">
             Instead of generic filters, I implemented <span class="font-semibold">dictionary learning with sparse coding</span> 
             that learns the actual patterns of atomic structures from data. This preserves atomic-scale features while 
-            suppressing noise.
+            suppressing noise—achieving better SNR than conventional methods.
           </p>
           <div class="bg-white rounded-lg p-4">
             <p class="text-sm text-gray-600"><span class="font-semibold">Key Technology:</span> K-SVD algorithm, sparse representation, adaptive pattern learning</p>
@@ -256,7 +257,7 @@
                   <li>• <span class="font-semibold">Adaptive:</span> Learns patterns specific to atomic structures</li>
                   <li>• <span class="font-semibold">Sparse:</span> Represents images with minimal components</li>
                   <li>• <span class="font-semibold">Preserves features:</span> Maintains atomic-scale details</li>
-                  <li>• <span class="font-semibold">Outperforms:</span> Better SNR than Gaussian filters</li>
+                  <li>• <span class="font-semibold">Outperforms:</span> better SNR than Gaussian filters</li>
                 </ul>
               </div>
               <div class="md:w-1/2">
@@ -299,14 +300,19 @@
                 </p>
               </div>
               <div class="md:w-1/2">
-                <img src="../assets/img/map_estimation.png" alt="MAP Estimation Process" class="rounded-lg shadow-md mb-4 w-full" />
-                <div class="bg-green-50 p-4 rounded-lg">
-                  <p class="text-sm text-gray-700 mb-2"><span class="font-semibold">Key Innovation:</span> Incorporating physics-based priors</p>
-                  <ul class="text-sm text-gray-600 space-y-1">
-                    <li>• Bond length constraints</li>
-                    <li>• Known crystal symmetry</li>
-                    <li>• Expected curvature ranges</li>
+                <div class="bg-green-50 p-6 rounded-lg h-full flex flex-col justify-center">
+                  <p class="text-sm text-gray-700 mb-4"><span class="font-semibold">Key Innovation:</span> Incorporating physics-based priors</p>
+                  <ul class="text-sm text-gray-600 space-y-2">
+                    <li>• <span class="font-semibold">Bond length constraints:</span> Expected C-C distances in graphene</li>
+                    <li>• <span class="font-semibold">Crystal symmetry:</span> Hexagonal lattice structure</li>
+                    <li>• <span class="font-semibold">Curvature ranges:</span> Physically plausible deformation limits</li>
                   </ul>
+                  <div class="mt-4 pt-4 border-t border-green-200">
+                    <p class="text-xs text-gray-600">
+                      This probabilistic framework provides robust initial estimates that serve as starting points 
+                      for subsequent optimization stages.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -482,7 +488,7 @@
           <ul class="space-y-2 text-sm text-gray-700">
             <li>• <span class="font-semibold">MD:</span> LAMMPS for atomic simulation</li>
             <li>• <span class="font-semibold">DFT:</span> VASP for electronic properties</li>
-            <li>• <span class="font-semibold">Visualization:</span> Matplotlib, Pymol, Vesta</li>
+            <li>• <span class="font-semibold">Visualization:</span> MATLAB, Matplotlib, Pymol, Vesta</li>
             <li>• <span class="font-semibold">Image Processing:</span> TEM analysis tools</li>
             <li>• <span class="font-semibold">HPC:</span> Cluster computing experience</li>
           </ul>
@@ -534,7 +540,7 @@
   <footer class="bg-gray-900 text-gray-400 text-center py-8">
     <div class="max-w-6xl mx-auto px-6">
       <p class="mb-2">© 2025 Xiaojun Zhang, PhD</p>
-      <p class="text-sm mb-4">AI/ML Engineer | Computer Vision Specialist | Computational Scientist</p>
+      <p class="text-sm mb-4">AI/ML Engineer | Computational Scientist</p>
       <div class="flex justify-center gap-6 text-sm flex-wrap">
         <a href="../index.html" class="hover:text-white transition">Home</a>
         <a href="mailto:xzhang2365@gmail.com" class="hover:text-white transition">Contact</a>
@@ -546,7 +552,6 @@
 
 </body>
 </html>
-        
 
         <!-- Comparative Advantage -->
         <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-8 shadow-lg">
@@ -585,19 +590,45 @@
       </div>
 
       <!-- Structural Analysis Results -->
-      <div class="bg-gray-900 text-white rounded-xl p-8 shadow-lg mb-12">
-        <h3 class="text-2xl font-bold mb-6">Structural & Electronic Analysis</h3>
+      <div class="bg-gradient-to-r from-slate-800 to-blue-900 text-white rounded-xl p-8 shadow-lg mb-12">
+        <h3 class="text-2xl font-bold mb-6">Structural & Electronic Property Analysis</h3>
         <p class="text-gray-300 mb-6">
-          Beyond reconstruction, I analyzed how 3D atomic distortions influence electronic properties using Density Functional Theory (DFT), 
-          revealing the relationship between structural ripples and electron transport.
+          Beyond reconstruction, I analyzed how 3D atomic distortions influence material properties. 
+          The z-coordinate height distribution reveals the topographical rippling structure, while 
+          Electron Localization Function (ELF) analysis computed via Density Functional Theory (DFT) 
+          shows how these structural deformations affect electron distribution and bonding characteristics.
         </p>
-        <div class="grid md:grid-cols-2 gap-6">
-          <img src="../assets/img/ripple_map.png" alt="Ripple structure analysis" class="rounded-lg shadow-md w-full" />
-          <img src="../assets/img/band_structure.png" alt="Electronic band structure" class="rounded-lg shadow-md w-full" />
+        
+        <div class="bg-white bg-opacity-10 backdrop-blur rounded-lg p-4 mb-6">
+          <img src="../assets/img/analysis.png" alt="Structural and Electronic Analysis" class="rounded-lg shadow-lg w-full" />
         </div>
-        <p class="text-sm text-gray-400 mt-4 text-center">
-          Left: 3D ripple topology reconstructed from TEM images | Right: Corresponding electronic band structure from DFT
-        </p>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-blue-800 bg-opacity-40 rounded-lg p-4">
+            <h4 class="font-bold text-blue-200 mb-2">Z-Height Distribution</h4>
+            <p class="text-sm text-gray-300">
+              Color-coded height map reveals the 3D ripple topology of graphene, showing amplitude 
+              and wavelength characteristics of structural distortions induced by thermal fluctuations 
+              and electron beam interactions.
+            </p>
+          </div>
+          <div class="bg-blue-800 bg-opacity-40 rounded-lg p-4">
+            <h4 class="font-bold text-blue-200 mb-2">Electron Localization Function (ELF)</h4>
+            <p class="text-sm text-gray-300">
+              DFT-calculated ELF distribution demonstrates how local curvature and rippling affect 
+              electron density, providing insights into the relationship between 3D geometry and 
+              electronic transport properties.
+            </p>
+          </div>
+        </div>
+        
+        <div class="mt-6 bg-green-500 bg-opacity-20 border border-green-400 rounded-lg p-4">
+          <p class="text-sm text-green-200">
+            <span class="font-semibold">Key Finding:</span> Local curvature and ripple amplitude significantly 
+            influence electron localization patterns, which directly impacts carrier mobility and conductivity—
+            critical parameters for graphene-based electronic devices.
+          </p>
+        </div>
       </div>
 
       <!-- Dynamic Behavior -->
