@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Portfolio page for a small MRI reconstruction demo exploring inverse-problem methods across imaging modalities."
+  />
+  <title>MRI Reconstruction Demo | Xiaojun Zhang</title>
+  <link rel="icon" href="../assets/img/icon.png" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="../index.html">XZ</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#overview">Overview</a>
+        <a href="#methods">Methods</a>
+        <a href="#positioning">Positioning</a>
+        <a href="../index.html">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero project-hero-compact">
+      <div class="container">
+        <p class="eyebrow">Secondary Project</p>
+        <h1>MRI reconstruction demo</h1>
+        <p class="project-hero-text">
+          A smaller educational project showing how inverse-problem ideas transfer from electron microscopy to accelerated MRI reconstruction.
+        </p>
+        <div class="action-row">
+          <a class="button button-primary" href="https://github.com/xjzhang2365/medrecon">GitHub</a>
+          <a class="button button-tertiary" href="../index.html">Back to Portfolio</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview" class="section">
+      <div class="container section-narrow">
+        <div class="section-heading">
+          <p class="eyebrow">Overview</p>
+          <h2>A modest but relevant reconstruction side project</h2>
+        </div>
+        <div class="prose-block">
+          <p>
+            <code>medrecon</code> is a lightweight Streamlit demo for accelerated MRI reconstruction from undersampled k-space.
+            It is intentionally much smaller in scope than the TEM reconstruction system, but it is useful as a clear demonstration
+            of transferable inverse-problem thinking across imaging modalities.
+          </p>
+          <p>
+            The project focuses on readable implementations, side-by-side comparison of reconstruction methods, and interactive explanation of the measurement model.
+            It is best understood as an exploratory educational tool rather than a research centerpiece or production system.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="methods" class="section section-tinted">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Methods</p>
+          <h2>What the demo implements</h2>
+        </div>
+
+        <div class="card-grid">
+          <article class="card">
+            <h3>Forward model</h3>
+            <p>
+              Simulates undersampled MRI acquisition in k-space and reconstructs an image from incomplete Fourier measurements.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Classical baseline</h3>
+            <p>
+              Includes zero-filled reconstruction and a pure-NumPy FISTA implementation for sparse regularized recovery.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Learned variants</h3>
+            <p>
+              Adds a simple learned-ISTA baseline and a lightweight U-Net to compare algorithmic and learned approaches in one interface.
+            </p>
+          </article>
+        </div>
+
+        <div class="callout">
+          <strong>Why it belongs in the portfolio:</strong>
+          it shows the same general algorithmic instincts as the TEM work, but in a smaller, clearer, easier-to-demo imaging setting.
+        </div>
+      </div>
+    </section>
+
+    <section id="positioning" class="section">
+      <div class="container section-narrow">
+        <div class="section-heading">
+          <p class="eyebrow">Positioning</p>
+          <h2>Presented honestly</h2>
+        </div>
+        <div class="card">
+          <ul class="plain-list">
+            <li>Educational and exploratory project</li>
+            <li>Relevant to reconstruction and inverse problems</li>
+            <li>Not positioned as a production medical imaging system</li>
+            <li>Useful as evidence of breadth across imaging modalities</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-shell">
+      <p>Xiaojun Zhang</p>
+      <p>Computational Imaging / Inverse Problems / Scientific Computing</p>
+    </div>
+  </footer>
+</body>
+</html>
