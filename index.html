@@ -77,7 +77,7 @@
       mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
       opacity: 0.4;
     }
-    .hero-inner { max-width: var(--max-w); margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center; position: relative; }
+    .hero-inner { max-width: var(--max-w); margin: 0 auto; width: 100%; display: flex; align-items: center; position: relative; }
     .hero-eyebrow { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.2rem; }
     .hero h1 { font-family: var(--font-serif); font-size: clamp(2.8rem, 5vw, 4rem); line-height: 1.12; color: var(--ink); margin-bottom: 1rem; }
     .hero-subtitle { font-size: 1.05rem; color: var(--ink-muted); max-width: 520px; margin-bottom: 1.5rem; line-height: 1.7; }
@@ -283,23 +283,7 @@
       </div>
     </div>
 
-    <div class="hero-panel fade-up fade-up-3">
-      <div class="stat-card">
-        <div class="stat-number">0.45 Å</div>
-        <div class="stat-label">OUT-OF-PLANE ACCURACY</div>
-        <div class="stat-desc">Sub-angstrom 3D reconstruction from single low-dose TEM frame at SNR &lt; 3</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">2.2×</div>
-        <div class="stat-label">IMPROVEMENT OVER PRIOR ART</div>
-        <div class="stat-desc">vs. Segawa et al. 2021 — while reducing frames from 15 to 1</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">50 K+</div>
-        <div class="stat-label">IMAGES PROCESSED</div>
-        <div class="stat-desc">Automated pipeline with MAD outlier removal across 200B+ pixel values</div>
-      </div>
-    </div>
+
   </div>
 </section>
 
@@ -360,7 +344,7 @@
   <div class="section-inner">
     <p class="section-label">Featured Research</p>
     <h2 class="section-title">Physics-informed 3D reconstruction<br>from single low-dose TEM images</h2>
-    <p class="section-intro">Flagship PhD project at City University of Hong Kong, in collaboration with Prof. Angus Kirkland (University of Oxford). Reconstructs 3D atomic coordinates of free-standing graphene from individual TEM frames at 8×10³ e⁻/Å² and 1 ms temporal resolution.</p>
+
 
     <!-- Pipeline image -->
     <div class="pipeline-container">
@@ -411,20 +395,7 @@
       </div>
     </div>
 
-    <!-- Key results table -->
-    <div style="margin-top:1.5rem;background:var(--surface);border:1px solid var(--border-md);border-radius:var(--radius-lg);padding:1.5rem 1.8rem;box-shadow:var(--shadow);">
-      <h3 style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:1rem;">Comparison with prior methods</h3>
-      <table class="mri-table" style="margin-top:0;">
-        <thead><tr>
-          <th>Method</th><th>Frames required</th><th>Temporal res.</th><th>z-accuracy</th><th>SNR regime</th>
-        </tr></thead>
-        <tbody>
-          <tr><td style="font-weight:500;">This work (SA+MD)</td><td class="best">1</td><td class="best">1 ms</td><td class="best">0.45 Å</td><td>SNR &lt; 3</td></tr>
-          <tr><td>Segawa et al. 2021</td><td>15</td><td>~70 s</td><td>±1.0 Å</td><td>Higher SNR</td></tr>
-          <tr><td>Li Songge et al. 2023</td><td>1</td><td>~1 ms</td><td>Comparable</td><td>Material-specific</td></tr>
-        </tbody>
-      </table>
-    </div>
+
   </div>
 </section>
 
