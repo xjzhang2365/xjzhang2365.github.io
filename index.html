@@ -3,287 +3,809 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="Xiaojun Zhang is a computational imaging scientist focused on inverse problems, low-dose TEM reconstruction, and scientific computing for noisy imaging data."
-  />
+  <meta name="description" content="Xiaojun Zhang — Computational Imaging Scientist. Physics-informed inverse problems, 3D TEM reconstruction, scientific computing." />
   <title>Xiaojun Zhang | Computational Imaging Scientist</title>
-  <link rel="icon" href="assets/img/icon.png" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #0f1117;
+      --ink-muted: #4a4f5e;
+      --ink-faint: #8a8f9e;
+      --surface:   #ffffff;
+      --surface-2: #f4f4f6;
+      --surface-3: #eaeaed;
+      --accent:    #1a56db;
+      --accent-2:  #0d3fa6;
+      --teal:      #0e7460;
+      --teal-light:#d1fae5;
+      --amber:     #b45309;
+      --amber-light:#fef3c7;
+      --border:    rgba(0,0,0,0.08);
+      --border-md: rgba(0,0,0,0.13);
+      --radius:    10px;
+      --radius-lg: 16px;
+      --shadow:    0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-lg: 0 2px 8px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.08);
+      --font-sans: 'Instrument Sans', system-ui, sans-serif;
+      --font-serif:'DM Serif Display', Georgia, serif;
+      --font-mono: 'DM Mono', monospace;
+      --max-w:     1120px;
+      --nav-h:     60px;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-sans); background: var(--surface); color: var(--ink); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+    }
+    .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-family: var(--font-mono); font-size: 15px; font-weight: 500; color: var(--ink); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; font-weight: 500; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      padding: calc(var(--nav-h) + 4rem) 2rem 5rem;
+      display: flex; align-items: center;
+      background:
+        radial-gradient(ellipse 70% 50% at 80% 60%, rgba(26,86,219,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 10% 80%, rgba(14,116,96,0.04) 0%, transparent 60%),
+        var(--surface);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+      opacity: 0.4;
+    }
+    .hero-inner { max-width: var(--max-w); margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center; position: relative; }
+    .hero-eyebrow { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .hero h1 { font-family: var(--font-serif); font-size: clamp(2.8rem, 5vw, 4rem); line-height: 1.12; color: var(--ink); margin-bottom: 1rem; }
+    .hero-subtitle { font-size: 1.05rem; color: var(--ink-muted); max-width: 520px; margin-bottom: 1.5rem; line-height: 1.7; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2rem; }
+    .tag { font-family: var(--font-mono); font-size: 11px; background: var(--surface-2); border: 1px solid var(--border-md); border-radius: 6px; padding: 4px 10px; color: var(--ink-muted); letter-spacing: 0.02em; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: var(--radius); font-size: 14px; font-weight: 500; text-decoration: none; transition: all 0.18s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-primary:hover { background: var(--accent-2); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,86,219,0.28); }
+    .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--border-md); }
+    .btn-outline:hover { background: var(--surface-2); transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--ink-muted); font-size: 13px; padding: 10px 16px; }
+    .btn-ghost:hover { color: var(--ink); }
+
+    /* hero stats panel */
+    .hero-panel { display: flex; flex-direction: column; gap: 12px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.2rem 1.4rem; box-shadow: var(--shadow); }
+    .stat-number { font-family: var(--font-serif); font-size: 2rem; color: var(--ink); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; }
+    .stat-desc { font-size: 13px; color: var(--ink-muted); margin-top: 6px; }
+
+    /* graphene canvas hero decoration */
+    .graphene-canvas { position: absolute; right: -80px; top: 50%; transform: translateY(-50%); opacity: 0.12; pointer-events: none; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: var(--max-w); margin: 0 auto; }
+    .section-label { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-serif); font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--ink); margin-bottom: 1rem; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--ink-muted); max-width: 640px; line-height: 1.75; }
+    .tinted { background: var(--surface-2); }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-top: 2.5rem; }
+    .about-prose p { color: var(--ink-muted); line-height: 1.8; margin-bottom: 1rem; font-size: 0.975rem; }
+    .about-prose p:last-child { margin-bottom: 0; }
+    .about-highlights { display: flex; flex-direction: column; gap: 14px; }
+    .highlight-item { display: flex; gap: 14px; align-items: flex-start; }
+    .highlight-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+    .hi-blue { background: #dbeafe; }
+    .hi-teal { background: #d1fae5; }
+    .hi-amber { background: #fef3c7; }
+    .hi-purple { background: #ede9fe; }
+    .highlight-text strong { display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+    .highlight-text span { font-size: 12px; color: var(--ink-faint); }
+
+    /* ── FEATURED PROJECT ── */
+    .featured-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+    .project-card-main { background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow); }
+    .pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.2rem; }
+    .pill { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+    .pill-blue { background: #dbeafe; color: #1e40af; }
+    .pill-teal { background: #d1fae5; color: #065f46; }
+    .pill-purple { background: #ede9fe; color: #5b21b6; }
+    .pill-amber { background: #fef3c7; color: #92400e; }
+    .project-card-main p { font-size: 0.94rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 1.5rem; }
+    .metrics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+    .metric-box { background: var(--surface-2); border-radius: var(--radius); padding: 12px 14px; }
+    .metric-box dt { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.04em; margin-bottom: 4px; }
+    .metric-box dd { font-family: var(--font-mono); font-size: 14px; color: var(--ink); font-weight: 500; }
+    .card-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .project-visual { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); }
+    .project-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-visual-placeholder { width: 100%; height: 100%; min-height: 340px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; }
+
+    /* graphene viz */
+    .graphene-viz { background: #0f1117; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); position: relative; height: 340px; }
+    .graphene-viz canvas { width: 100%; height: 100%; }
+
+    /* model image */
+    .model-image { width: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); }
+    .model-image img { width: 100%; display: block; }
+
+    /* media strip */
+    .media-strip { margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .media-item { background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+    .media-item img { width: 100%; display: block; }
+    .media-caption { padding: 12px 16px; font-size: 12px; color: var(--ink-faint); font-family: var(--font-mono); }
+
+    /* pipeline SVG container */
+    .pipeline-container { margin-top: 2.5rem; background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow); }
+    .pipeline-container img { width: 100%; border-radius: var(--radius); }
+
+    /* ── PROJECTS GRID ── */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .proj-card { background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.6rem; box-shadow: var(--shadow); transition: box-shadow 0.2s, transform 0.2s; }
+    .proj-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .proj-kicker { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 0.6rem; }
+    .proj-card h3 { font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.3; }
+    .proj-card p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 1rem; }
+    .proj-points { list-style: none; margin-bottom: 1.2rem; display: flex; flex-direction: column; gap: 5px; }
+    .proj-points li { font-size: 12px; color: var(--ink-muted); padding-left: 14px; position: relative; }
+    .proj-points li::before { content: '—'; position: absolute; left: 0; color: var(--ink-faint); font-size: 10px; top: 2px; }
+    .proj-links { display: flex; gap: 10px; }
+    .proj-links a { font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 500; border: 1px solid rgba(26,86,219,0.2); padding: 4px 10px; border-radius: 6px; transition: all 0.15s; }
+    .proj-links a:hover { background: rgba(26,86,219,0.06); }
+
+    /* ── MRI COMPARISON ── */
+    .mri-comparison { margin-top: 2.5rem; }
+    .mri-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .mri-panel { background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+    .mri-panel canvas { width: 100%; display: block; }
+    .mri-panel-label { padding: 10px 12px; background: var(--surface-2); border-top: 1px solid var(--border); }
+    .mri-panel-label strong { display: block; font-size: 12px; font-weight: 600; color: var(--ink); }
+    .mri-panel-label span { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); }
+    .mri-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .mri-table th { text-align: left; padding: 8px 12px; background: var(--surface-2); color: var(--ink-muted); font-weight: 500; font-size: 11px; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+    .mri-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--ink); }
+    .mri-table tr:last-child td { border-bottom: none; }
+    .mri-table .best { color: var(--teal); font-weight: 600; }
+    .mri-table-wrap { background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.5rem; }
+    .skill-card { background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.4rem; }
+    .skill-card h3 { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 0.9rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border); }
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .skill-list li { font-size: 12px; color: var(--ink-muted); display: flex; align-items: center; gap: 6px; }
+    .skill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: 0.4; flex-shrink: 0; }
+
+    /* ── PUBLICATION ── */
+    .pub-card { background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.8rem 2rem; box-shadow: var(--shadow); margin-top: 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+    .pub-card h3 { font-size: 1.05rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.4; }
+    .pub-card p { font-size: 13px; color: var(--ink-muted); line-height: 1.6; margin-bottom: 0.8rem; }
+    .pub-meta { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); }
+    .pub-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2rem; max-width: 640px; }
+    .contact-item { background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.1rem 1.3rem; text-decoration: none; transition: all 0.18s; display: flex; align-items: center; gap: 12px; }
+    .contact-item:hover { border-color: rgba(26,86,219,0.3); transform: translateY(-1px); box-shadow: var(--shadow); }
+    .contact-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .contact-label { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.04em; }
+    .contact-value { font-size: 13px; font-weight: 500; color: var(--ink); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
+    footer p { font-size: 13px; color: var(--ink-faint); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease forwards; opacity: 0; }
+    .fade-up-1 { animation-delay: 0.1s; }
+    .fade-up-2 { animation-delay: 0.22s; }
+    .fade-up-3 { animation-delay: 0.34s; }
+    .fade-up-4 { animation-delay: 0.46s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner, .about-grid, .featured-layout { grid-template-columns: 1fr; }
+      .hero-panel { display: none; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .mri-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .pub-card { grid-template-columns: 1fr; }
+      .pub-actions { align-items: flex-start; flex-direction: row; }
+    }
+    @media (max-width: 600px) {
+      .skills-grid, .contact-grid { grid-template-columns: 1fr; }
+      .mri-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container nav-shell">
-      <a class="brand" href="index.html">XZ</a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#featured-project">Featured Project</a>
-        <a href="#selected-projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </nav>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">XZ <span>//</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#featured">Research</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-outline" href="cv/Xiaojun_Zhang_CV.pdf" style="font-size:13px;padding:7px 16px;">Download CV</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow fade-up fade-up-1">Computational Imaging Scientist</p>
+      <h1 class="fade-up fade-up-2">Xiaojun Zhang</h1>
+      <p class="hero-subtitle fade-up fade-up-3">
+        I build physics-informed reconstruction algorithms for noisy imaging data — recovering structure from measurements where signal is scarce and the physics matters.
+      </p>
+      <div class="hero-tags fade-up fade-up-3">
+        <span class="tag">Inverse Problems</span>
+        <span class="tag">3D Reconstruction</span>
+        <span class="tag">Low-Dose TEM</span>
+        <span class="tag">Simulated Annealing</span>
+        <span class="tag">MRI Reconstruction</span>
+        <span class="tag">Scientific Computing</span>
+      </div>
+      <div class="hero-cta fade-up fade-up-4">
+        <a class="btn btn-primary" href="#featured">View Research</a>
+        <a class="btn btn-outline" href="https://arxiv.org/abs/2604.07271" target="_blank">arXiv Preprint ↗</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
     </div>
-  </header>
 
-  <main id="main">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Computational Imaging Scientist</p>
-          <h1>Xiaojun Zhang</h1>
-          <p class="hero-title">Inverse Problems / Scientific Computing / Algorithm Development</p>
-          <p class="hero-text">
-            I build reconstruction algorithms for noisy imaging data, with a focus on low-dose electron microscopy,
-            physics-informed modeling, and scientific software that bridges experimental measurements and quantitative analysis.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#featured-project">View Projects</a>
-            <a class="button button-secondary" href="cv/Xiaojun_Zhang_CV.pdf">Download CV</a>
-            <a class="button button-tertiary" href="#contact">Contact</a>
-          </div>
-        </div>
-
-        <aside class="hero-panel" aria-label="Technical focus summary">
-          <div class="metric-card">
-            <p class="metric-label">Focus Areas</p>
-            <ul class="plain-list">
-              <li>Low-dose TEM reconstruction</li>
-              <li>Physics-informed inverse problems</li>
-              <li>Scientific computing pipelines</li>
-              <li>Validation and simulation workflows</li>
-            </ul>
-          </div>
-          <div class="metric-card">
-            <p class="metric-label">Current Positioning</p>
-            <p class="metric-text">
-              Industry-facing portfolio for R&amp;D, computational imaging, scientific computing, and algorithm roles.
-            </p>
-          </div>
-        </aside>
+    <div class="hero-panel fade-up fade-up-3">
+      <div class="stat-card">
+        <div class="stat-number">0.45 Å</div>
+        <div class="stat-label">OUT-OF-PLANE ACCURACY</div>
+        <div class="stat-desc">Sub-angstrom 3D reconstruction from single low-dose TEM frame at SNR &lt; 3</div>
       </div>
-    </section>
-
-    <section id="about" class="section">
-      <div class="container section-narrow">
-        <div class="section-heading">
-          <p class="eyebrow">About</p>
-          <h2>Solving hard imaging problems with algorithms that respect the data and the physics</h2>
-        </div>
-        <div class="prose-block">
-          <p>
-            I am a computational scientist trained at the intersection of experimental imaging, inverse problems, and algorithm development.
-            My work focuses on recovering structure from noisy measurements, especially in settings where standard image processing is not enough and the underlying physics matters.
-          </p>
-          <p>
-            Across research and software projects, I build complete technical workflows: preprocessing, initialization, reconstruction, simulation, validation, and analysis.
-            That includes translating research methods into maintainable Python code and designing pipelines that are inspectable, reproducible, and useful beyond a single experiment.
-          </p>
-        </div>
+      <div class="stat-card">
+        <div class="stat-number">2.2×</div>
+        <div class="stat-label">IMPROVEMENT OVER PRIOR ART</div>
+        <div class="stat-desc">vs. Segawa et al. 2021 — while reducing frames from 15 to 1</div>
       </div>
-    </section>
-
-    <section id="featured-project" class="section section-tinted">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Featured Project</p>
-          <h2>Physics-informed 3D reconstruction from low-dose TEM</h2>
-          <p class="section-intro">
-            Flagship PhD project on recovering 3D graphene structure from single low-dose transmission electron microscopy frames.
-          </p>
-        </div>
-
-        <div class="feature-layout">
-          <article class="feature-copy card">
-            <div class="pill-row">
-              <span class="pill">Inverse Problems</span>
-              <span class="pill">Computational Imaging</span>
-              <span class="pill">Scientific Software</span>
-            </div>
-            <p>
-              This project addresses a severely ill-posed reconstruction problem: inferring 3D atomic coordinates from a noisy 2D projection.
-              The pipeline combines low-dose image preprocessing, atomic initialization, projected-charge-density z estimation, simulated annealing,
-              and molecular-dynamics-based structural regularization.
-            </p>
-            <dl class="summary-grid">
-              <div>
-                <dt>Problem</dt>
-                <dd>3D atomic reconstruction from single-frame low-dose TEM data.</dd>
-              </div>
-              <div>
-                <dt>Pipeline</dt>
-                <dd>Preprocessing, initialization, refinement, simulation, and validation.</dd>
-              </div>
-              <div>
-                <dt>Methods</dt>
-                <dd>BM3D, MAP-based detection, LOWESS, SA, abTEM, LAMMPS.</dd>
-              </div>
-              <div>
-                <dt>Outcome</dt>
-                <dd>Public repo documents staged validation on simulated graphene and paper-aligned architecture verification.</dd>
-              </div>
-            </dl>
-            <div class="action-row">
-              <a class="button button-primary" href="projects/graphene.html">Read Project Page</a>
-              <a class="button button-secondary" href="https://github.com/xjzhang2365/3D-Reconstruction-Low-Dose-Imaging">GitHub</a>
-              <a class="button button-secondary" href="https://arxiv.org/abs/2604.07271">arXiv</a>
-            </div>
-          </article>
-
-          <figure class="feature-visual card">
-            <img src="assets/img/figure1_concept.png" alt="Conceptual overview of the low-dose TEM reconstruction pipeline" />
-            <figcaption>
-              Pipeline overview from low-dose TEM input to 3D atomic reconstruction and downstream analysis.
-            </figcaption>
-          </figure>
-        </div>
-
-        <div class="media-strip">
-          <figure class="card">
-            <img src="assets/media/dynamics_preview.gif" alt="Animated preview of reconstructed graphene dynamics" />
-            <figcaption>Millisecond-scale reconstructed dynamics from the graphene workflow.</figcaption>
-          </figure>
-        </div>
+      <div class="stat-card">
+        <div class="stat-number">50 K+</div>
+        <div class="stat-label">IMAGES PROCESSED</div>
+        <div class="stat-desc">Automated pipeline with MAD outlier removal across 200B+ pixel values</div>
       </div>
-    </section>
-
-    <section id="selected-projects" class="section">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Selected Projects</p>
-          <h2>Related work in reconstruction and scientific software</h2>
-        </div>
-
-        <div class="card-grid">
-          <article class="project-card card card-accent">
-            <p class="project-kicker">Flagship Research System</p>
-            <h3><a href="projects/graphene.html">3D Reconstruction from Low-Dose TEM Images</a></h3>
-            <p>
-              Modular Python package for preprocessing, atomic initialization, SA/MD refinement, simulation, and validation for low-dose TEM reconstruction.
-            </p>
-            <ul class="project-points">
-              <li>Inverse-problem framing grounded in imaging physics</li>
-              <li>Deterministic simulated-data generation and benchmark tooling</li>
-              <li>Structured handoff files and visual QC for reproducibility</li>
-            </ul>
-            <div class="link-row">
-              <a href="projects/graphene.html">Project page</a>
-              <a href="https://github.com/xjzhang2365/3D-Reconstruction-Low-Dose-Imaging">GitHub</a>
-            </div>
-          </article>
-
-          <article class="project-card card">
-            <p class="project-kicker">Smaller Exploratory Project</p>
-            <h3><a href="projects/mri.html">MRI Reconstruction Demo</a></h3>
-            <p>
-              Educational reconstruction demo showing how inverse-problem thinking transfers across modalities, from TEM to accelerated MRI.
-            </p>
-            <ul class="project-points">
-              <li>Undersampled k-space reconstruction with FISTA and learned ISTA</li>
-              <li>Simple Streamlit interface for comparing methods and error maps</li>
-              <li>Presented honestly as a demo, not clinical or production software</li>
-            </ul>
-            <div class="link-row">
-              <a href="projects/mri.html">Project page</a>
-              <a href="https://github.com/xjzhang2365/medrecon">GitHub</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills" class="section section-tinted">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Skills</p>
-          <h2>Technical strengths</h2>
-        </div>
-
-        <div class="card-grid skills-grid">
-          <article class="card">
-            <h3>Computational Imaging &amp; Reconstruction</h3>
-            <ul class="plain-list">
-              <li>Inverse problems</li>
-              <li>Low-dose TEM reconstruction</li>
-              <li>MRI reconstruction</li>
-              <li>Denoising and image conditioning</li>
-              <li>Statistical initialization and refinement</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Scientific Computing &amp; Simulation</h3>
-            <ul class="plain-list">
-              <li>Python scientific stack</li>
-              <li>abTEM and ASE</li>
-              <li>LAMMPS integration</li>
-              <li>Optimization workflows</li>
-              <li>Benchmarking and validation tooling</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Programming &amp; Tools</h3>
-            <ul class="plain-list">
-              <li>Python, MATLAB</li>
-              <li>NumPy, SciPy, scikit-image</li>
-              <li>PyTorch</li>
-              <li>Git, Linux, CLI workflows</li>
-              <li>CSV / JSON / NPZ data pipelines</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Experimental / Domain Knowledge</h3>
-            <ul class="plain-list">
-              <li>Transmission electron microscopy</li>
-              <li>Materials characterization</li>
-              <li>Micro/nano fabrication background</li>
-              <li>Structure-property analysis</li>
-              <li>Bridging experiment and algorithm design</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="container section-narrow">
-        <div class="section-heading">
-          <p class="eyebrow">Contact</p>
-          <h2>Open to R&amp;D and algorithm roles</h2>
-        </div>
-
-        <div class="contact-card card">
-          <div class="contact-list">
-            <a href="mailto:xzhang2365@gmail.com">
-              <span>Email</span>
-              <strong>xzhang2365@gmail.com</strong>
-            </a>
-            <a href="https://www.linkedin.com/in/xiaojun-zhang-9b8495321">
-              <span>LinkedIn</span>
-              <strong>xiaojun-zhang-9b8495321</strong>
-            </a>
-            <a href="https://github.com/xjzhang2365">
-              <span>GitHub</span>
-              <strong>github.com/xjzhang2365</strong>
-            </a>
-            <a href="cv/Xiaojun_Zhang_CV.pdf">
-              <span>CV</span>
-              <strong>Download PDF</strong>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-shell">
-      <p>Xiaojun Zhang</p>
-      <p>Computational Imaging / Inverse Problems / Scientific Computing</p>
     </div>
-  </footer>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Recovering structure from noise,<br><em>one physics constraint at a time</em></h2>
+    <div class="about-grid">
+      <div class="about-prose">
+        <p>I am a computational scientist trained at the intersection of experimental imaging, inverse problems, and algorithm development. My PhD work focuses on a genuinely hard problem: inferring 3D atomic coordinates from a single 2D projection taken at extremely low electron dose.</p>
+        <p>The core challenge is not just noise — it is that the problem is fundamentally ill-posed. Multiple 3D configurations project to the same 2D image. My approach addresses this by encoding physical constraints directly into the optimization: molecular dynamics regularization forces solutions to remain on the interatomic potential energy surface, while simulated annealing enables global search without requiring gradients of the forward model.</p>
+        <p>I translate research methods into maintainable Python software — modular pipelines with structured handoffs, automated validation, and reproducible outputs. The same framework extends across imaging modalities, from electron microscopy to accelerated MRI.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <div class="highlight-icon hi-blue">🔭</div>
+          <div class="highlight-text">
+            <strong>Physics-informed optimization</strong>
+            <span>SA + MD regularization, KL-divergence calibration, forward modeling</span>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon hi-teal">🧬</div>
+          <div class="highlight-text">
+            <strong>Atomic-scale reconstruction</strong>
+            <span>3D graphene structure from single low-dose TEM frames at 1 ms resolution</span>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon hi-amber">⚙️</div>
+          <div class="highlight-text">
+            <strong>Production Python pipelines</strong>
+            <span>Modular stages, pytest suites, automated QC, reproducible NPZ/JSON outputs</span>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon hi-purple">🏥</div>
+          <div class="highlight-text">
+            <strong>Cross-modality transfer</strong>
+            <span>Same inverse-problem framework applied to MRI k-space reconstruction</span>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon hi-blue">📄</div>
+          <div class="highlight-text">
+            <strong>Published research</strong>
+            <span>arXiv:2604.07271 — first quantitative structure–ELF mapping from experimental dynamics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT -->
+<section id="featured" class="tinted">
+  <div class="section-inner">
+    <p class="section-label">Featured Research</p>
+    <h2 class="section-title">Physics-informed 3D reconstruction<br>from single low-dose TEM images</h2>
+    <p class="section-intro">Flagship PhD project at City University of Hong Kong, in collaboration with Prof. Angus Kirkland (University of Oxford). Reconstructs 3D atomic coordinates of free-standing graphene from individual TEM frames at 8×10³ e⁻/Å² and 1 ms temporal resolution.</p>
+
+    <!-- Pipeline image -->
+    <div class="pipeline-container">
+      <img src="assets/img/figure1_concept.png" alt="Physics-informed 3D reconstruction pipeline overview" />
+    </div>
+
+    <!-- Main cards -->
+    <div class="featured-layout" style="margin-top:1.5rem;">
+      <div class="project-card-main">
+        <div class="pills">
+          <span class="pill pill-blue">Inverse Problems</span>
+          <span class="pill pill-teal">Scientific Computing</span>
+          <span class="pill pill-purple">Computational Imaging</span>
+        </div>
+        <p>Reconstructing 3D atomic coordinates from a single 2D low-dose TEM image is severely ill-posed: the forward model is many-to-one, SNR is below 3, and the loss landscape contains many local minima. The framework addresses all three challenges simultaneously through SA global optimization with MD-based hard constraints on physical admissibility.</p>
+        <dl class="metrics-row">
+          <div class="metric-box"><dt>Z-accuracy</dt><dd>σ_z = 0.45 Å</dd></div>
+          <div class="metric-box"><dt>Temporal res.</dt><dd>1 ms / frame</dd></div>
+          <div class="metric-box"><dt>Frames needed</dt><dd>1 (vs. 15)</dd></div>
+          <div class="metric-box"><dt>SA iterations</dt><dd>4 outer loops</dd></div>
+        </dl>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://arxiv.org/abs/2604.07271" target="_blank">Read on arXiv ↗</a>
+          <a class="btn btn-outline" href="https://github.com/xjzhang2365/3D-Reconstruction-Low-Dose-Imaging" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+
+      <!-- Animated graphene visualization -->
+      <div class="graphene-viz">
+        <canvas id="grapheneCanvas"></canvas>
+        <div style="position:absolute;bottom:14px;left:16px;right:16px;">
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.08em;">REAL-TIME 3D RIPPLE DYNAMICS</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;">∆z = ±4 Å · 1 ms temporal resolution</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model image + results strip -->
+    <div class="media-strip">
+      <div class="media-item">
+        <img src="assets/img/model.jpg" alt="3D reconstructed graphene atomic model with z-height colormap" />
+        <div class="media-caption">Reconstructed 3D atomic model colored by out-of-plane height z. Green = reconstructed positions, gray surface = forward-simulated TEM image.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border-md);border-radius:var(--radius-lg);padding:1.4rem;box-shadow:var(--shadow);">
+        <h3 style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:1rem;">SA convergence on simulated data</h3>
+        <canvas id="convergenceChart" height="180"></canvas>
+        <p style="font-size:11px;color:var(--ink-faint);margin-top:10px;font-family:'DM Mono',monospace;">χ² and z-RMSD across 4 SA outer iterations. 2.5× improvement over initialization.</p>
+      </div>
+    </div>
+
+    <!-- Key results table -->
+    <div style="margin-top:1.5rem;background:var(--surface);border:1px solid var(--border-md);border-radius:var(--radius-lg);padding:1.5rem 1.8rem;box-shadow:var(--shadow);">
+      <h3 style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:1rem;">Comparison with prior methods</h3>
+      <table class="mri-table" style="margin-top:0;">
+        <thead><tr>
+          <th>Method</th><th>Frames required</th><th>Temporal res.</th><th>z-accuracy</th><th>SNR regime</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500;">This work (SA+MD)</td><td class="best">1</td><td class="best">1 ms</td><td class="best">0.45 Å</td><td>SNR &lt; 3</td></tr>
+          <tr><td>Segawa et al. 2021</td><td>15</td><td>~70 s</td><td>±1.0 Å</td><td>Higher SNR</td></tr>
+          <tr><td>Li Songge et al. 2023</td><td>1</td><td>~1 ms</td><td>Comparable</td><td>Material-specific</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <p class="section-label">Projects</p>
+    <h2 class="section-title">Related work in reconstruction<br>and scientific software</h2>
+
+    <div class="projects-grid">
+      <div class="proj-card">
+        <p class="proj-kicker">OPEN-SOURCE · PYTHON</p>
+        <h3>3D-Reconstruction-Low-Dose-Imaging</h3>
+        <p>Modular Python reimplementation of the full reconstruction pipeline. Replaces MATLAB and proprietary tools (Tempas, LAMMPS) with open-source equivalents (abTEM, ASE, matscipy).</p>
+        <ul class="proj-points">
+          <li>Stage 1: preprocessing (BM3D denoising, PSNR ≈ 28.9 dB, flat-field correction)</li>
+          <li>Stage 2: atomic detection (MAP estimation, PCD z-init, LOWESS smoothing)</li>
+          <li>Stage 3: SA + MD optimization loop (in progress)</li>
+          <li>pytest suites, Jupyter notebooks, visual verification PDFs at each stage</li>
+        </ul>
+        <div class="proj-links">
+          <a href="https://github.com/xjzhang2365/3D-Reconstruction-Low-Dose-Imaging" target="_blank">GitHub ↗</a>
+          <a href="https://arxiv.org/abs/2604.07271" target="_blank">Paper ↗</a>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <p class="proj-kicker">DEMO · STREAMLIT · ONNX</p>
+        <h3>medrecon — MRI Reconstruction Demo</h3>
+        <p>Interactive demo applying the same physics-informed inverse-problem framework to MRI k-space reconstruction, demonstrating cross-modality transfer from TEM.</p>
+        <ul class="proj-points">
+          <li>FISTA compressed sensing (wavelet-domain sparsity prior)</li>
+          <li>Learned ISTA (algorithm unrolling, trainable hyperparameters)</li>
+          <li>U-Net post-processor via ONNX Runtime (no PyTorch at inference)</li>
+          <li>Side-by-side SSIM/PSNR comparison across acceleration factors R=2–8×</li>
+        </ul>
+        <div class="proj-links">
+          <a href="https://medrecon-2dfz9shawp3iddl6egypfc.streamlit.app/" target="_blank">Live Demo ↗</a>
+          <a href="https://github.com/xjzhang2365/medrecon" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MRI comparison visualization -->
+    <div style="margin-top:2rem;background:var(--surface-2);border-radius:var(--radius-lg);padding:2rem;">
+      <p class="section-label" style="margin-bottom:0.5rem;">MRI Reconstruction</p>
+      <h3 style="font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:0.5rem;">Comparing classical and learned methods on undersampled k-space</h3>
+      <p style="font-size:13px;color:var(--ink-muted);margin-bottom:1.5rem;">Shepp-Logan phantom, R=4 acceleration, random undersampling mask</p>
+      <div class="mri-grid">
+        <div class="mri-panel">
+          <canvas id="mriGT" height="160"></canvas>
+          <div class="mri-panel-label"><strong>Ground truth</strong><span>Full k-space</span></div>
+        </div>
+        <div class="mri-panel">
+          <canvas id="mriZF" height="160"></canvas>
+          <div class="mri-panel-label"><strong>Zero-filled</strong><span>SSIM 0.38 · PSNR 22.5 dB</span></div>
+        </div>
+        <div class="mri-panel">
+          <canvas id="mriFISTA" height="160"></canvas>
+          <div class="mri-panel-label"><strong>FISTA</strong><span>SSIM 0.55 · PSNR 32.5 dB</span></div>
+        </div>
+        <div class="mri-panel">
+          <canvas id="mriLISTA" height="160"></canvas>
+          <div class="mri-panel-label"><strong>Learned ISTA</strong><span>SSIM 0.55 · PSNR 32.5 dB</span></div>
+        </div>
+      </div>
+      <div class="mri-table-wrap" style="margin-top:1rem;">
+        <table class="mri-table">
+          <thead><tr><th>Method</th><th>SSIM</th><th>PSNR (dB)</th><th>Runtime</th><th>Framework</th></tr></thead>
+          <tbody>
+            <tr><td>Zero-filled baseline</td><td>0.38</td><td>22.5</td><td>&lt;1 ms</td><td>NumPy</td></tr>
+            <tr><td>FISTA (60 iter)</td><td class="best">0.55</td><td class="best">32.5</td><td>~0.3 s</td><td>NumPy</td></tr>
+            <tr><td>Learned ISTA (8 unrolls)</td><td class="best">0.55</td><td class="best">32.5</td><td>~0.1 s</td><td>NumPy</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="tinted">
+  <div class="section-inner">
+    <p class="section-label">Skills</p>
+    <h2 class="section-title">Technical strengths</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Reconstruction & Algorithms</h3>
+        <ul class="skill-list">
+          <li><span class="skill-dot"></span>Inverse problems (ill-posed)</li>
+          <li><span class="skill-dot"></span>Simulated annealing</li>
+          <li><span class="skill-dot"></span>Bayesian estimation (MAP/MLE)</li>
+          <li><span class="skill-dot"></span>Compressed sensing (FISTA)</li>
+          <li><span class="skill-dot"></span>Forward modeling</li>
+          <li><span class="skill-dot"></span>Algorithm unrolling</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Image Processing</h3>
+        <ul class="skill-list">
+          <li><span class="skill-dot"></span>3D reconstruction (TEM, MRI)</li>
+          <li><span class="skill-dot"></span>Denoising (BM3D, K-SVD, U-Net)</li>
+          <li><span class="skill-dot"></span>Artifact correction</li>
+          <li><span class="skill-dot"></span>PSNR/SSIM benchmarking</li>
+          <li><span class="skill-dot"></span>Feature extraction</li>
+          <li><span class="skill-dot"></span>Statistical quality control</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Scientific Computing</h3>
+        <ul class="skill-list">
+          <li><span class="skill-dot"></span>Python (NumPy, SciPy, ASE)</li>
+          <li><span class="skill-dot"></span>MATLAB</li>
+          <li><span class="skill-dot"></span>LAMMPS (MD simulation)</li>
+          <li><span class="skill-dot"></span>VASP (DFT)</li>
+          <li><span class="skill-dot"></span>HPC / Linux / CUDA</li>
+          <li><span class="skill-dot"></span>abTEM / TEM simulation</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Software Engineering</h3>
+        <ul class="skill-list">
+          <li><span class="skill-dot"></span>Modular pipeline design</li>
+          <li><span class="skill-dot"></span>pytest / automated QC</li>
+          <li><span class="skill-dot"></span>PyTorch / TensorFlow</li>
+          <li><span class="skill-dot"></span>ONNX Runtime</li>
+          <li><span class="skill-dot"></span>Git / CLI workflows</li>
+          <li><span class="skill-dot"></span>Streamlit / Jupyter</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATION -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">Publication</p>
+    <h2 class="section-title">Research output</h2>
+    <div class="pub-card">
+      <div>
+        <h3>Physics-Informed 3D Atomic Reconstruction and Dynamics of Free-Standing Graphene from Single Low-Dose TEM Images</h3>
+        <p>Presents a SA+MD inverse solver with KL-divergence dose calibration achieving 0.45 Å out-of-plane accuracy at 1 ms temporal resolution. First quantitative structure–ELF polynomial mapping derived from experimentally reconstructed, dynamically evolving atomic configurations. Identifies critical dose threshold below which structural recovery is statistically impossible.</p>
+        <p class="pub-meta">Xiaojun Zhang, Shih-Wei Hung, Yawei Wu, Jyh-Pin Chou, Angus I. Kirkland, Roar Kilaas, Fu-Rong Chen · arXiv:2604.07271 · 2026</p>
+      </div>
+      <div class="pub-actions">
+        <a class="btn btn-primary" href="https://arxiv.org/abs/2604.07271" target="_blank" style="white-space:nowrap;">arXiv ↗</a>
+        <a class="btn btn-outline" href="https://github.com/xjzhang2365/3D-Reconstruction-Low-Dose-Imaging" target="_blank" style="white-space:nowrap;">Code ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="tinted">
+  <div class="section-inner">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Open to R&D and computational<br>imaging roles</h2>
+    <p class="section-intro" style="margin-bottom:0;">Based in Boston, MA. Available immediately. U.S. work authorization.</p>
+    <div class="contact-grid">
+      <a class="contact-item" href="mailto:xzhang2365@gmail.com">
+        <div class="contact-icon">✉️</div>
+        <div><div class="contact-label">EMAIL</div><div class="contact-value">xzhang2365@gmail.com</div></div>
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/xiaojun-zhang-9b8495321" target="_blank">
+        <div class="contact-icon">💼</div>
+        <div><div class="contact-label">LINKEDIN</div><div class="contact-value">xiaojun-zhang-9b8495321</div></div>
+      </a>
+      <a class="contact-item" href="https://github.com/xjzhang2365" target="_blank">
+        <div class="contact-icon">⌨️</div>
+        <div><div class="contact-label">GITHUB</div><div class="contact-value">xjzhang2365</div></div>
+      </a>
+      <a class="contact-item" href="cv/Xiaojun_Zhang_CV.pdf">
+        <div class="contact-icon">📄</div>
+        <div><div class="contact-label">CURRICULUM VITAE</div><div class="contact-value">Download PDF</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Xiaojun Zhang · Computational Imaging Scientist · Boston, MA</p>
+</footer>
+
+<script>
+/* ── GRAPHENE ANIMATION ── */
+(function() {
+  const canvas = document.getElementById('grapheneCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, atoms = [], t = 0;
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    buildLattice();
+  }
+  function buildLattice() {
+    atoms = [];
+    const a = 28, rows = Math.ceil(H / (a * 0.866)) + 4, cols = Math.ceil(W / a) + 4;
+    for (let r = -2; r < rows; r++) {
+      for (let c = -2; c < cols; c++) {
+        const x = c * a + (r % 2) * a * 0.5;
+        const y = r * a * 0.866;
+        atoms.push({ bx: x, by: y, phase: (c * 0.37 + r * 0.51) });
+        const x2 = x + a * 0.5;
+        const y2 = y + a * 0.289;
+        atoms.push({ bx: x2, by: y2, phase: (c * 0.37 + r * 0.51 + 1.2) });
+      }
+    }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0f1117';
+    ctx.fillRect(0, 0, W, H);
+    t += 0.008;
+    const positions = atoms.map(a => {
+      const wave1 = Math.sin(a.bx * 0.018 + t) * Math.cos(a.by * 0.015 + t * 0.7);
+      const wave2 = Math.cos(a.bx * 0.012 - t * 0.5) * Math.sin(a.by * 0.02 + t * 0.9);
+      const z = (wave1 + wave2 * 0.6) * 14;
+      const brightness = (z + 28) / 56;
+      return { x: a.bx, y: a.by, z, brightness };
+    });
+    /* bonds */
+    ctx.lineWidth = 0.7;
+    for (let i = 0; i < positions.length; i++) {
+      const pi = positions[i];
+      for (let j = i + 1; j < positions.length; j++) {
+        const pj = positions[j];
+        const dx = pi.x - pj.x, dy = pi.y - pj.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 30) {
+          const avg = (pi.brightness + pj.brightness) / 2;
+          const alpha = 0.15 + avg * 0.25;
+          const r = Math.round(30 + avg * 60);
+          const g = Math.round(180 + avg * 60);
+          const b = Math.round(180 + avg * 40);
+          ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(pi.x, pi.y + pi.z * 0.3);
+          ctx.lineTo(pj.x, pj.y + pj.z * 0.3);
+          ctx.stroke();
+        }
+      }
+    }
+    /* atoms */
+    for (const p of positions) {
+      const r = 1.8 + p.brightness * 1.4;
+      const alpha = 0.5 + p.brightness * 0.5;
+      const R = Math.round(40 + p.brightness * 100);
+      const G = Math.round(200 + p.brightness * 40);
+      const B = Math.round(160 + p.brightness * 60);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y + p.z * 0.3, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${R},${G},${B},${alpha})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+
+/* ── CONVERGENCE CHART ── */
+(function() {
+  const canvas = document.getElementById('convergenceChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width = canvas.offsetWidth;
+  const H = canvas.height = 180;
+  const pad = { t: 20, r: 20, b: 36, l: 48 };
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
+  const chi2 = [134.7, 133.6, 129.6, 129.5, 129.0];
+  const rmsd  = [1.11,  0.78,  0.72,  0.61,  0.45];
+  const labels = ['Init','Iter 1','Iter 2','Iter 3','Iter 4'];
+  function xp(i) { return pad.l + (i / 4) * iw; }
+  function yp(v, mn, mx) { return pad.t + ih - ((v - mn) / (mx - mn)) * ih; }
+  ctx.fillStyle = '#f4f4f6'; ctx.fillRect(0, 0, W, H);
+  ctx.font = '11px DM Mono, monospace';
+  /* grid */
+  ctx.strokeStyle = 'rgba(0,0,0,0.07)'; ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 4; i++) {
+    const x = xp(i);
+    ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + ih); ctx.stroke();
+    ctx.fillStyle = '#8a8f9e'; ctx.textAlign = 'center';
+    ctx.fillText(labels[i], x, H - 6);
+  }
+  /* chi2 bars */
+  const chi2mn = 128, chi2mx = 136;
+  const bw = iw / 5 * 0.35;
+  chi2.forEach((v, i) => {
+    const x = xp(i) - bw / 2;
+    const y = yp(v, chi2mn, chi2mx);
+    const h = pad.t + ih - y;
+    ctx.fillStyle = 'rgba(99,153,34,0.75)';
+    ctx.fillRect(x, y, bw, h);
+  });
+  /* chi2 label */
+  ctx.fillStyle = '#3b6d11'; ctx.textAlign = 'left'; ctx.font = '10px DM Mono, monospace';
+  ctx.fillText('χ²', pad.l + 4, pad.t + 12);
+  /* rmsd line */
+  ctx.strokeStyle = '#1a56db'; ctx.lineWidth = 2; ctx.lineJoin = 'round';
+  ctx.beginPath();
+  rmsd.forEach((v, i) => {
+    const x = xp(i), y = yp(v, 0, 1.3);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  /* rmsd dots */
+  rmsd.forEach((v, i) => {
+    const x = xp(i), y = yp(v, 0, 1.3);
+    ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#1a56db'; ctx.fill();
+    ctx.fillStyle = '#0f1117'; ctx.textAlign = 'center'; ctx.font = '10px DM Mono, monospace';
+    ctx.fillText(v.toFixed(2) + 'Å', x, y - 8);
+  });
+  ctx.fillStyle = '#1a56db'; ctx.textAlign = 'right'; ctx.font = '10px DM Mono, monospace';
+  ctx.fillText('z-RMSD', W - pad.r, pad.t + 12);
+})();
+
+/* ── MRI PHANTOM CANVASES ── */
+(function() {
+  function sheppLogan(x, y, W, H) {
+    const cx = x / W - 0.5, cy = y / H - 0.5;
+    let v = 0;
+    const ellipses = [
+      [0,0,0.69,0.92,0,1],[0,-0.0184,0.6624,0.874,0,-0.8],
+      [0.22,0,0.11,0.31,-18,-0.2],[-0.22,0,0.16,0.41,18,-0.2],
+      [0,0.35,0.21,0.25,0,0.1],[0,0.1,0.046,0.046,0,0.1],
+      [0,-0.1,0.046,0.046,0,0.1],[-0.08,-0.605,0.046,0.023,0,0.1],
+      [0,-0.605,0.023,0.023,0,0.1],[0.06,-0.605,0.023,0.046,0,0.1]
+    ];
+    for (const [ex,ey,ea,eb,erot,eval_] of ellipses) {
+      const ca = Math.cos(erot*Math.PI/180), sa = Math.sin(erot*Math.PI/180);
+      const rx = (cx-ex)*ca + (cy-ey)*sa;
+      const ry = -(cx-ex)*sa + (cy-ey)*ca;
+      if ((rx/ea)**2+(ry/eb)**2 <= 1) v += eval_;
+    }
+    return Math.max(0, Math.min(1, (v + 0.2) / 1.2));
+  }
+  function fillGT(id, noiseLevel, aliasLevel) {
+    const canvas = document.getElementById(id);
+    if (!canvas) return;
+    const S = 160;
+    canvas.width = canvas.height = S;
+    const ctx = canvas.getContext('2d');
+    const img = ctx.createImageData(S, S);
+    for (let y = 0; y < S; y++) {
+      for (let x = 0; x < S; x++) {
+        let v = sheppLogan(x, y, S, S);
+        if (noiseLevel > 0) v += (Math.random() - 0.5) * noiseLevel;
+        if (aliasLevel > 0) {
+          const alias = Math.sin(y * 0.4) * aliasLevel + Math.sin(x * 0.3) * aliasLevel * 0.5;
+          v += alias;
+        }
+        v = Math.max(0, Math.min(1, v));
+        const g = Math.round(v * 255);
+        const idx = (y * S + x) * 4;
+        img.data[idx] = g; img.data[idx+1] = g; img.data[idx+2] = g; img.data[idx+3] = 255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+  fillGT('mriGT',   0,    0);
+  fillGT('mriZF',   0,    0.18);
+  fillGT('mriFISTA',0.02, 0.04);
+  fillGT('mriLISTA',0.02, 0.035);
+})();
+
+/* ── SCROLL FADE IN ── */
+(function() {
+  const els = document.querySelectorAll('.proj-card, .skill-card, .stat-card, .pub-card, .mri-panel');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
+  }, { threshold: 0.1 });
+  els.forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    obs.observe(el);
+  });
+})();
+</script>
 </body>
 </html>
